@@ -1,0 +1,75 @@
+# .gitignore for docquery-ai-document-search
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+!.env.local.example
+*.pem
+*.key
+
+# Machine-local CA bundle from scripts/export_ca_bundle.py. Names the corporate
+# TLS-inspection root, is specific to this machine, and is regenerated on demand.
+.certs/
+
+# Local PostgreSQL data directory (scripts/setup_postgres.py). Contains the
+# database itself — never committed.
+.pgdata/
+.pgsql/
+secrets.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Node / TypeScript
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+*.tsbuildinfo
+coverage/
+.next/
+out/
+
+# Migrations (keep versioned scripts; ignore local scratch)
+*.sql.bak
+alembic/versions/*.pyc
+
+# Editors and OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs and scratch
+logs/
+*.log
+tmp/
+.cache/
+
+# AI workspace — intentionally tracked.
+# .claude/ .cursor/ .windsurf/ AGENTS.md CLAUDE.md and WORKBREAKDOWN.md are part of this
+# project's source of truth. Commit them so the whole team gets the same agents,
+# skills and rules. Only machine-local IDE state is ignored:
+.claude/settings.local.json
+.cursor/settings.local.json
+
+# Dumped API spec (deploy/README.md: generate it, do not commit it)
+openapi.json

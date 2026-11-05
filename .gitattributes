@@ -1,0 +1,29 @@
+# .gitattributes
+# Role: keep line endings correct for files that are executed, not just read.
+#
+# This repository is developed on Windows with `core.autocrlf=true`, which rewrites text
+# files to CRLF on checkout. That is harmless for source Git never executes directly, and
+# fatal for a shell script that runs on the POC instance: Linux reads `#!/usr/bin/env bash`
+# with a trailing CR as part of the interpreter name and fails with
+#
+#     bad interpreter: /usr/bin/env bash^M: no such file or directory
+#
+# The same CR ends up inside every quoted string and comparison in the script, so a file
+# that survives the shebang can still break in ways that read as logic errors. Pinning LF
+# here means a clone on any platform produces scripts the instance can run.
+*.sh      text eol=lf
+run_tmux.sh text eol=lf
+
+# `deploy/env.poc.example` and `deploy/frontend.env.local.poc.example` are copied to `.env`
+# on a Linux host and read by pydantic-settings. A CR survives into the value, so
+# `ENVIRONMENT=local\r` is not `local` and cookies silently gain the Secure flag.
+deploy/*.example text eol=lf
+
+# Python is tolerant of CRLF, but these two run on the instance and are edited on Windows;
+# keeping them LF avoids a diff that is nothing but line endings.
+deploy/*.py text eol=lf
+scripts/*.py text eol=lf
+
+# cmd.exe needs CRLF: a batch file with LF line endings runs, but `goto`/`if` blocks and
+# multi-line constructs misparse in older shells, and the failure is silent.
+*.cmd     text eol=crlf

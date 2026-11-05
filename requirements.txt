@@ -1,0 +1,63 @@
+# requirements.txt
+# Role: Python dependencies for FastAPI, Pydantic, ORM, Postgres driver, Pinecone, and
+# optional Redis.
+#
+# Install:  uv venv && uv pip install -r requirements.txt
+# Versions are the set resolved on 2026-08-13 for Python 3.13.
+
+# --- Web framework ---
+fastapi==0.141.1
+uvicorn[standard]==0.52.2
+python-multipart==0.0.32          # multipart/form-data document uploads
+
+# --- Validation / settings ---
+pydantic==2.13.4
+pydantic-settings==2.15.0         # typed settings for backend/core/config.py
+email-validator==2.3.0            # pydantic EmailStr
+
+# --- Database ---
+sqlalchemy[asyncio]==2.0.52
+asyncpg==0.31.0                   # async Postgres driver
+greenlet==3.5.5                   # required by SQLAlchemy asyncio
+alembic==1.19.1
+
+# --- Vector store ---
+# Pinecone serverless holds every embedding; PostgreSQL holds no vectors at all, which is why
+# `pgvector` is absent and a stock PostgreSQL 17 (no compiled extension) is enough. The package
+# is `pinecone`, not the retired `pinecone-client`. v9 ships `PineconeAsyncio`, so the vector
+# store matches the rest of this async codebase instead of blocking the event loop.
+pinecone==9.1.0
+
+# --- Auth / security ---
+pyjwt[crypto]==2.13.0             # JWT access + refresh tokens
+bcrypt==5.0.0                     # password hashing, cost factor 12
+slowapi==0.1.10                   # rate limiting on /auth/*
+
+# --- AWS (Bedrock + S3) ---
+boto3==1.43.70
+botocore==1.43.70
+
+# --- Document parsing ---
+pypdf==6.15.0                     # PDF text + page extraction
+python-docx==1.2.0                # DOCX text + section extraction
+
+# --- Export (PDF / Excel) ---
+openpyxl==3.1.5
+reportlab==5.0.0
+
+# --- Background jobs ---
+celery==5.6.3
+redis==8.1.0
+
+# --- Logging ---
+structlog==26.1.0                 # structured JSON logs (request_id, user_id, action)
+
+# --- HTTP client ---
+httpx==0.28.1                     # also the FastAPI TestClient transport
+
+# --- Dev / test ---
+pytest==9.1.1
+pytest-asyncio==1.4.0
+pytest-cov==7.1.0
+ruff==0.16.2
+mypy==2.3.0
