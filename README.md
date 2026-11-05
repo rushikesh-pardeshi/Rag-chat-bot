@@ -1,9 +1,20 @@
 
 
 
+<div align="center">
+
 # DocQuery
 
 Ask natural-language questions over uploaded documents and get answers with source citations and audit logs.
+
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-4169E1?logo=postgresql&logoColor=white)
+
+[Run locally](#run-locally-windows) · [Docker](#run-with-docker) · [Checks](#checks) · [Project structure](#project-structure) · [Runbook](docs/RUNNING.md)
+
+</div>
 
 ## About the project
 
